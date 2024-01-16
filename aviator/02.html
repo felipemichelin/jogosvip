@@ -32,7 +32,6 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 <link rel="stylesheet" id="elementor-frontend-css" href="images/frontend-lite.mine56c.css?ver=3.12.2" media="all" />
 <link rel="stylesheet" id="elementor-post-2112-css" href="images/post-2112c922.css?ver=1682258395" media="all" />
 <link rel="stylesheet" id="elementor-icons-css" href="images/elementor-icons.min3b94.css?ver=5.18.0" media="all">
-<script src="images/jquery.min5aed.js?ver=3.6.4" id="jquery-core-js"></script>
 
 
 <script>
@@ -169,8 +168,57 @@ src="https://www.facebook.com/tr?id=379687551393506&ev=PageView&noscript=1"
 <div class="elementor-widget-container">
 <style>/*! elementor - v3.12.2 - 23-04-2023 */
 .elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:#69727d;color:#fff}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap{color:#69727d;border:3px solid;background-color:transparent}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap{margin-top:8px}.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter{width:1em;height:1em}.elementor-widget-text-editor .elementor-drop-cap{float:left;text-align:center;line-height:1;font-size:50px}.elementor-widget-text-editor .elementor-drop-cap-letter{display:inline-block}</style>
-<p class>Ganhe meu curso <span style="color: rgb(255, 255, 0);">grátis</span> + Transações ao vivo do Aviator em que você pode confiar hoje! - <span style="color: rgb(255, 255, 0);" class>Restam 29 vagas.</span></p>
+<p class>Ganhe meu curso <span style="color: rgb(255, 255, 0);">grátis</span> + Transações ao vivo do Aviator em que você pode confiar hoje!<span data-vagas-container> - <span style="color: rgb(255, 255, 0);" class>Restam <span data-vagas-left></span> vagas.</span></span></p>
 </div>
+
+<script>
+// Set initial opacity of data-vagas-container elements to 0
+var containers = document.querySelectorAll("[data-vagas-container]");
+containers.forEach(function(container) {
+  container.style.opacity = "0";
+});
+
+var number =
+  parseInt(localStorage.getItem("vagasLeft")) ||
+  Math.floor(Math.random() * (45 - 25 + 1)) + 35; // Starts around 30
+updateDisplay(number);
+
+var interval = setInterval(function () {
+  // Randomly decrease the number by 1-2
+  number -= Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+  // Save to local storage
+  localStorage.setItem("vagasLeft", number.toString());
+  // Update the display
+  updateDisplay(number);
+  // Check if number has reached 0 or below
+  if (number <= 0) {
+    clearInterval(interval);
+    // Set display of containers to 'none'
+    var containers = document.querySelectorAll("[data-vagas-container]");
+    containers.forEach(function(container) {
+      container.style.display = "none";
+    });
+  }
+}, Math.random() * (10000 - 5000 + 1) + 5000); // Randomly between 5-10 seconds
+
+// Function to update the display on all elements
+function updateDisplay(num) {
+  var displayElements = document.querySelectorAll("[data-vagas-left]");
+  displayElements.forEach(function(element) {
+    element.textContent = num;
+  });
+  // Set opacity of containers to 1 if number is greater than 0
+  if (num > 0) {
+    var containers = document.querySelectorAll("[data-vagas-container]");
+    containers.forEach(function(container) {
+      container.style.opacity = "1";
+    });
+  }
+}
+
+
+
+</script>
 </div>
 <div class="elementor-element elementor-element-13948d8 elementor-widget elementor-widget-text-editor" data-id="13948d8" data-element_type="widget" data-widget_type="text-editor.default">
 <div class="elementor-widget-container">
@@ -370,37 +418,7 @@ src="https://www.facebook.com/tr?id=379687551393506&ev=PageView&noscript=1"
 </script>
 
 
-<script>
-  // Initialize or retrieve the number
-  var number =
-  parseInt(localStorage.getItem("vagasLeft")) ||
-  Math.floor(Math.random() * (35 - 25 + 1)) + 25; // Now starts around 30
-updateDisplay(number);
-var interval = setInterval(function () {
-  // Randomly decrease the number by 3-4
-  number -= Math.floor(Math.random() * (4 - 3 + 1)) + 3;
-  // Save to local storage
-  localStorage.setItem("vagasLeft", number.toString());
-  // Update the display
-  updateDisplay(number);
-  // Check if number has reached 0 or below
-  if (number <= 0) {
-    clearInterval(interval);
-    document.querySelector(
-      "[data-vagas-container]"
-    ).style.display = "none";
-  }
-}, Math.random() * (3000 - 2000 + 1) + 2000); // Randomly between 2-3 seconds
-// Function to update the display
-function updateDisplay(num) {
-  var displayElement =
-    document.querySelector("[data-vagas-left]");
-  if (displayElement) {
-    displayElement.textContent = num;
-  }
-}
 
-</script>
 
 
 </body>
