@@ -126,13 +126,6 @@ src="https://www.facebook.com/tr?id=379687551393506&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 
 
-<script>
-  function handleCTA() {
-      var url = 'https://track.jogosvip.club/preclick/?predestination=https%3A%2F%2Ft.me%2F%2Bpi6sno5bpEQ0NjY1';
-      window.location.href = url;
-
-  }
-</script>
 
 </head>
 <body class="page-template page-template-elementor_canvas page page-id-2112 multiple-domain-site ehf-template-hello-elementor ehf-stylesheet-hello-elementor elementor-default elementor-template-canvas elementor-kit-5 elementor-page elementor-page-2112">
@@ -229,7 +222,7 @@ function updateDisplay(num) {
 <div class="elementor-element elementor-element-50528d3 elementor-align-center x elementor-widget elementor-widget-button" data-id="50528d3" data-element_type="widget" data-widget_type="button.default">
 <div class="elementor-widget-container">
 <div class="elementor-button-wrapper">
-<a id="myButton" href="#" class="elementor-button-link elementor-button elementor-size-md" role="button">
+<a id="CTA_DELAY" href="https://track.jogosvip.club/preclick/?predestination=https%3A%2F%2Ft.me%2F%2Bpi6sno5bpEQ0NjY1" class="elementor-button-link elementor-button elementor-size-md" role="button">
 <span class="elementor-button-content-wrapper">
 <span class="elementor-button-icon elementor-align-icon-left">
 <i aria-hidden="true" class="fab fa-telegram"></i> </span>
@@ -408,15 +401,55 @@ function updateDisplay(num) {
 <script src="images/frontend.mine56c.js?ver=3.12.2" id="elementor-frontend-js"></script>
 <script src="images/elements-handlers.min0fca.js?ver=3.12.3" id="pro-elements-handlers-js"></script>
 
-<script>
-  var myButton = document.getElementById('myButton');
 
-  myButton.addEventListener('click', function(event) {
-    event.preventDefault();
-    handleCTA();
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to get cookie by name
+    function getCookie(name) {
+      let cookieArray = document.cookie.split(';');
+      for(let i = 0; i < cookieArray.length; i++) {
+        let cookiePair = cookieArray[i].split('=');
+        if(name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1]);
+        }
+      }
+      return null;
+    }
+
+    // Function to get URL parameter by name
+    function getUrlParam(name) {
+      let results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+      if (results == null) {
+        return null;
+      }
+      return decodeURIComponent(results[1]) || null;
+    }
+
+    // Get _fbp cookie and fbclid URL parameter
+    let fbpCookie = getCookie('_fbp');
+    let fbclidParam = getUrlParam('fbclid');
+
+    // Modify the button's URL
+    let button = document.getElementById('CTA_DELAY');
+    if (button) {
+      let originalUrl = button.getAttribute('href');
+      let newUrl = originalUrl;
+
+      // Append fbp if exists
+      if (fbpCookie) {
+        newUrl += '&fbp=' + fbpCookie;
+      }
+
+      // Append fbc if fbclid exists
+      if (fbclidParam) {
+        newUrl += (fbpCookie ? '&' : '?') + 'fbc=' + fbclidParam;
+      }
+
+      button.setAttribute('href', newUrl);
+    }
   });
 </script>
-
 
 
 
