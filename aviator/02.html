@@ -381,6 +381,8 @@ function updateDisplay(num) {
 
     // Get _fbp cookie and fbclid URL parameter
     let fbpCookie = getCookie('_fbp');
+    let fbcCookie = getCookie('_fbc');
+
     let fbclidParam = getUrlParam('fbclid');
 
     // Modify the button's URL
@@ -395,8 +397,8 @@ function updateDisplay(num) {
       }
 
       // Append fbc if fbclid exists
-      if (fbclidParam) {
-        newUrl += (fbpCookie ? '&' : '?') + 'fbc=' + fbclidParam;
+      if (fbcCookie) {
+        newUrl += (fbpCookie ? '&' : '?') + 'fbc=' + fbcCookie;
       }
 
       button.setAttribute('href', newUrl);
